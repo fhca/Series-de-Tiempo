@@ -41,6 +41,7 @@ dolar = pd.read_excel("tipoCambio.xls", skiprows=8, index_col=0, parse_dates=Tru
 dolar.replace(to_replace='N/E', value=np.nan, inplace=True)
 dolar.fillna(method='bfill', inplace=True)
 
+"""
 plt.figure()
 ax = plt.axes()
 # plt.plot(dolar)
@@ -51,3 +52,22 @@ plt.xticks(rotation=90)
 xmin, xmax = ax.get_xlim()
 ax.set_xticks(np.round(np.linspace(xmin, xmax, 20)))
 plt.show()
+"""
+
+# SERIE ORIGINAL
+# test_stationarity(dolar)
+
+# SACANDOLE EL LOG base 10
+dolar_log = np.log(dolar)
+# test_stationarity(dolar_log)
+
+rol = dolar_log.rolling(window=12, center=False)  # calcula las ventanas
+mm = rol.mean()
+dm = rol.std()
+dolar_log_menosmediamovil = dolar_log - mm
+dolar_log_menosmediamovil.dropna(inplace=True)
+#test_stationarity(dolar_log_menosmediamovil)
+
+dolar_log_normalizado = dolar_log_menosmediamovil / dm
+dolar_log_normalizado.dropna(inplace=True)
+test_stationarity(dolar_log_normalizado)
