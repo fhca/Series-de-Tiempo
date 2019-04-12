@@ -5,6 +5,33 @@ import numpy as np
 
 import matplotlib.pyplot as plt
 
+from statsmodels.tsa.stattools import adfuller
+
+
+def test_stationarity(timeseries):
+    # mMedidas móviles
+    rol = timeseries.rolling(window=12, center=False)
+    rolmean = rol.mean()
+    rolstd = rol.std()
+
+    # graficar medidas móviles:
+    orig = plt.plot(timeseries, color='blue', label='Original')
+    mean = plt.plot(rolmean, color='red', label='Media móvil')
+    std = plt.plot(rolstd, color='black', label='Desviación móvil')
+    plt.legend(loc='best')
+    plt.title('Media y Desviación Estándard móviles')
+    plt.show(block=False)
+
+    # Realiza prueba de Dickey-Fuller:
+    print('Resultados de la prueba de Dickey-Fuller:')
+    dftest = adfuller(timeseries, autolag='AIC')
+    dfoutput = pd.Series(dftest[0:4],
+                         index=['Estadística de la prueba', 'valor-p', '#retrasos usados', 'Número de observaciones'])
+    for key, value in dftest[4].items():
+        dfoutput['Valor crítico (%s)' % key] = value
+    print(dfoutput)
+
+
 # dolar = \
 #    pd.read_csv("https://www.exchange-rates.org/HistoryExchangeRatesReportDownload.aspx?base_iso_code=USD&iso_code=MXN",
 #                index_col=0)['Rate']
