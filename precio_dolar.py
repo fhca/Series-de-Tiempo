@@ -36,7 +36,7 @@ def test_stationarity(timeseries):
 #    pd.read_csv("https://www.exchange-rates.org/HistoryExchangeRatesReportDownload.aspx?base_iso_code=USD&iso_code=MXN",
 #                index_col=0)['Rate']
 
-dolar = pd.read_excel("tipoCambio.xls", skiprows=8, index_col=0, parse_dates=True, header=None)[1][1:]
+dolar = pd.read_excel("tipoCambio.xls", skiprows=8, index_col=0, parse_dates=True, header=None)[2][1:]
 
 dolar.replace(to_replace='N/E', value=np.nan, inplace=True)
 dolar.fillna(method='bfill', inplace=True)
@@ -52,7 +52,7 @@ plt.xticks(rotation=90)
 xmin, xmax = ax.get_xlim()
 ax.set_xticks(np.round(np.linspace(xmin, xmax, 20)))
 plt.show()
-"""
+
 
 # SERIE ORIGINAL
 # test_stationarity(dolar)
@@ -71,3 +71,84 @@ dolar_log_menosmediamovil.dropna(inplace=True)
 dolar_log_normalizado = dolar_log_menosmediamovil / dm
 dolar_log_normalizado.dropna(inplace=True)
 test_stationarity(dolar_log_normalizado)
+
+
+promedio_movil_ponderado_exponencial = dolar.ewm(halflife=12, min_periods=0, adjust=True, ignore_na=False).mean()
+#plt.plot(dolar)
+#plt.plot(promedio_movil_ponderado_exponencial, color='red')
+test_stationarity(dolar - promedio_movil_ponderado_exponencial)
+plt.show()
+"""
+
+"""
+ESTACIONARIEDAD (stationarity): La serie (con cierto de grado de confianza) es estacionaria si su media y desviación estandar móviles 
+son cercanas a cero en todos sus puntos. (son practicamente unas horizontales sobre la recta y=0)
+
+ESTACIONALIDAD (seasonal): Se refiere a los cambios producidos por las "estaciones" (como en las estaciones del año: primavera, 
+verano, otoño, invierno), o períodos cíclicos (temporadas) que puede tener una serie.
+"""
+
+
+from statsmodels.tsa.seasonal import seasonal_decompose
+
+def grafica(original, tendencia, estacionalidad, residuales):
+    ticksize = 6
+    plt.subplot(411)
+    plt.plot(original, label='Original')
+    plt.legend(loc='best')
+    plt.xticks(size=ticksize)
+    plt.subplot(412)
+    plt.plot(tendencia, label='Tendencia')
+    plt.legend(loc='best')
+    plt.xticks(size=ticksize)
+    plt.subplot(413)
+    plt.plot(estacionalidad, label='Estacionalidad')
+    plt.legend(loc='best')
+    plt.xticks(size=ticksize)
+    plt.subplot(414)
+    plt.plot(residuales, label='Residuales')
+    plt.legend(loc='best')
+    plt.xticks(size=ticksize)
+    plt.tight_layout()
+    plt.show()
+
+"""# tomando menos datos
+dolar=dolar['2019-03-09':]
+
+descomposición = seasonal_decompose(dolar, freq=7)
+
+tendencia = descomposición.trend
+estacionalidad = descomposición.seasonal
+residuales = descomposición.resid
+
+grafica(dolar, tendencia, estacionalidad, residuales)
+
+"""
+
+# Prueba para Samuel... ganas $0.03 por cada dolar si se compra en viernes y se vende al martes siguiente
+#plt.plot(residuales['2019-01':])
+
+#plt.xticks(size=7)
+#plt.show()
+
+# VERIFICANDO QUE      O = T + E + R
+#plt.plot(dolar)
+#plt.plot(tendencia + estacionalidad + residuales, color='red')
+#plt.show()
+
+# VERIFICANDO QUE LOS RESIDUALES SON UNA SERIE ESTACIONARIA
+#res = residuales.dropna()
+#test_stationarity(res)
+
+
+
+### Predicciones
+original = dolar['2018-01-01':'2019-03-08']
+datos_reales = dolar['2019-03-09':]
+descomposición = seasonal_decompose(original, freq=100)
+
+tendencia = descomposición.trend
+estacionalidad = descomposición.seasonal
+residuales = descomposición.resid
+
+grafica(original, tendencia, estacionalidad, residuales)
