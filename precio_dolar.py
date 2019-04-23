@@ -145,10 +145,29 @@ grafica(dolar, tendencia, estacionalidad, residuales)
 ### Predicciones
 original = dolar['2018-01-01':'2019-03-08']
 datos_reales = dolar['2019-03-09':]
-descomposición = seasonal_decompose(original, freq=100)
+### No se vale modificar antes de esta linea!!!
+
+
+
+
+freq = 100
+
+descomposición = seasonal_decompose(original, freq=freq)
 
 tendencia = descomposición.trend
 estacionalidad = descomposición.seasonal
 residuales = descomposición.resid
 
-grafica(original, tendencia, estacionalidad, residuales)
+#grafica(original, tendencia, estacionalidad, residuales)
+
+
+#print(len(original), len(tendencia), len(estacionalidad), len(residuales))
+
+from datetime import datetime
+tend = tendencia['2019-01':].dropna()
+plt.plot(tend)
+plt.plot([datetime(2019,1,1), datetime(2019,1,17)], [19.694882, 19.520532], color='red')
+print(tendencia['2019-01':])
+
+
+plt.show()
