@@ -3,10 +3,11 @@ __author__ = 'fhca'
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from statsmodels.tsa.stattools import adfuller
 
 
 def test_stationarity(timeseries, ventana=12, nombre="ORIGINAL"):
+    from statsmodels.tsa.stattools import adfuller
+
     """
     :param timeseries: Enum
     :parama ventana: Int
