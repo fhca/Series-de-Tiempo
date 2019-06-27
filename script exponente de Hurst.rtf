@@ -1,0 +1,63 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf500
+{\fonttbl\f0\fnil\fcharset0 HelveticaNeue-Bold;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\deftab560
+\pard\pardeftab560\partightenfactor0
+
+\f0\b\fs34 \cf0 El m\'e9todo de Fluctuaciones Sin Tendencia, es una t\'e9cnica de an\'e1lisis de datos que surge inicialmente en el \'e1rea m\'e9dica, a partir del an\'e1lisis de los latidos del coraz\'f3n. e1\
+\
+La motivaci\'f3n para este estudio surge de cuestionarse el origen de un extra\'f1o fen\'f3meno. Experimentando con gatos que sufr\'edan de alguna lesi\'f3n en nervios o falla en la oxigenaci\'f3n o presi\'f3n de su sangre, la actividad el\'e9ctrica de la m\'e9dula espinal, medida con m\'faltiples electrodos a todo lo largo, sufr\'eda cambios en su sincronizaci\'f3n natural. e2\
+\
+El m\'e9todo de Peng pod\'eda ayudar a explicar este fen\'f3meno. e3\
+\
+Pero veamos que es exponente de Hurst. El exponente de Hurst es una medida obtenida para una serie de datos tomados cada cierto intervalo de tiempo, que para aplicaciones biol\'f3gicas, como los potenciales el\'e9ctricos en el coraz\'f3n o en la columna, se miden en milisegundos.\
+As\'ed, Peng y su equipo tomaban la actividad el\'e9ctrica del coraz\'f3n, y esta serie de datos, llamada tambi\'e9n \'93serie de tiempo\'94, al cabo de unos cuantos segundos constaba de miles de datos. El exponente de Hurst, es una medida o caracterizaci\'f3n num\'e9rica de esta serie, con el fin de determinar si esta se comporta aleatoriamente, lo cual era la creencia hasta ese entonces, o si ten\'eda alg\'fan comportamiento \'93complejo\'94.\
+Aqu\'ed entenderemos \'93complejo\'94, en el sentido de los \'93sistemas complejos\'94, de los que ya hemos hablado en programas anteriores. Estos datos tienen la apariencia de ser aleatorios, m\'e1s sin embargo son generados de manera determinista, es decir, hay una raz\'f3n detr\'e1s de su existencia, como por ejemplo, alguna afectaci\'f3n en otra parte del organismo.\
+El exponente de Hurst, entonces, es un valor que dice mas o menos que tan determinista y fractal es una serie de tiempo. El equivalente geom\'e9trico ser\'eda la llamada \'93dimensi\'f3n fractal\'94, la cual es otra medida de la cual hablaremos en otro programa. Al igual que esta, el exponente de Hurst identifica que tanta \'93autosimilitud\'94 hay entre sus datos, esto es, la medida de cuantos subconjuntos de datos tienen un parecido estad\'edstico con el conjunto completo.\
+Al igual que la estad\'edstica tradicional, el exponente de Hurst utiliza m\'e9todos y herramientas conocidos como la media, la desviaci\'f3n est\'e1ndar y los m\'ednimos cuadrados. Pero a diferencia de la estad\'edstica tradicional, utiliza estas herramientas para tratar de ver si la variaci\'f3n de los datos, a lo largo de diferentes tama\'f1os de muestra, se parece a una funci\'f3n llamada \'93ley de potencias\'94. O sea, aquellas funciones en las que la variable \'93x\'94 est\'e1 elevada a un cierto exponente. El exponente es precisamente el llamado exponente de Hurst.\
+Uno se podr\'eda preguntar el por qu\'e9 no utilizar la estad\'edstica tradicional para analizar series de tiempo complejas, como pueden ser las obtenidas de la biolog\'eda, de los movimientos burs\'e1tiles o de datos sismol\'f3gicos, y la raz\'f3n principal, es que el promedio general de los datos en estas series no tiene \'93ning\'fan significado\'94, esto es, casi no hay datos que se parezcan al promedio.\
+\
+Recordemos brevemente algunas herramientas estad\'edsticas. La media o el promedio de un bloque de datos, es la suma de todos ellos, dividido entre la cantidad de elementos del bloque.\
+\
+Su desviaci\'f3n est\'e1ndar, es la medida de que tan desviados o separados est\'e1n los datos de su media. Para calcularla, a cada dato le restamos la media, lo elevamos al cuadrado. Se promedian estos valores y se le saca ra\'edz cuadrada.\
+\
+Las sumas acumuladas son una lista de valores, el primero es el primer valor del bloque, el segundo es la suma de los dos primeros valores del bloque, el tercero es la suma de los tres primeros valores, etc.\
+\
+A los datos de un bloque, a los que les ha restado a cada uno la media del bloque, se les llama \'93datos sin tendencia\'94.\
+\
+Si a un bloque de datos le obtenemos las sumas acumuladas de los datos sin tendencia. La fluctuaci\'f3n se definir\'e1 como la diferencia del mayor menos el menor valor de estas sumas.\
+\
+As\'ed el m\'e9todo para calcular el exponente de Hurst para una serie de tiempo, comienza subdividiendo los datos en bloques de igual tama\'f1o. Primero realizamos el an\'e1lisis para la serie entera, luego dividimos la serie en dos bloques, luego en 4, luego en 8, etc. Para cada subdivisi\'f3n, el an\'e1lisis que tendremos que hacer es el siguiente:\
+\
+Dividimos primero la fluctuaci\'f3n de cada bloque entre su desviaci\'f3n est\'e1ndar, y promediamos todos estos valores. Al valor resultante le llamaremos \'93coordenada y\'94. La \'93coordenada x\'94 ser\'e1 simplemente el tama\'f1o del bloque en esa subdivisi\'f3n.\
+\
+De esta forma podemos graficar este an\'e1lisis como puntos con las coordenadas \'93x\'94 y \'93y\'94 obtenidas.\
+\
+Si los datos son complejos, la curva formada por estos puntos se parecer\'e1 a una ley de potencias. Un truco para saber exactamente de que potencia hablamos, es graficar lo anterior en un plano \'93log log\'94 o \'93doble logaritmo\'94, esto es, en vez de ubicar la \'93coordenada x\'94, ubicamos su logaritmo y lo mismo con la \'93coordenada y\'94. La curva resultante, si es una ley de potencias, se parecer\'e1 a una recta en el plano \'93log log\'94. La pendiente de esa recta ser\'e1 precisamente el exponente de Hurst.\
+\
+S\'f3lo un \'faltimo detalle. Los valores \'93x y\'94 en el plano \'93log log\'94, as\'ed obtenidos, pueden no estar exactamente sobre una recta, por lo que se usa el cl\'e1sico m\'e9todo de los m\'ednimos cuadrados para obtener la recta que minimiza su distancia con cada dato, o sea, la recta que represente el comportamiento de los datos. \
+\
+El exponente de Hurst, entonces, se compara con una tabla de rangos de valores, para determinar las caracter\'edsticas de la serie, o como se dice en sistemas complejos, a que tipo de \'93ruido\'94 pertenece. e4\
+\
+Hasta ah\'ed era lo que Peng y su equipo hab\'edan logrado. Sin embargo, el an\'e1lisis de Peng se aplicaba a un s\'f3lo electrodo y para analizar la sincronizaci\'f3n o falta de ella, entre las se\'f1ales producidas por una colecci\'f3n de sensores a todo lo largo de la columna vertebral, se necesitaba modificar la t\'e9cnica para calcular un valor de Hurst para m\'faltiples electrodos. El trabajo de los Doctores Erika Rodriguez y Benjam\'edn Itz\'e1, consisti\'f3  en extender la t\'e9cnica para calcular el exponente de Hurst, no sobre bloques de valores escalares, sino sobre bloques de valores vectoriales. \
+\
+As\'ed, para cada instante de tiempo, se produc\'eda un vector, es decir, una lista de valores, hasta 30 en algunos casos, donde cada valor corresponde a un electrodo. e5\
+\
+Sin embargo, el hecho de manejar vectores en vez de escalares trajo con sigo dificultades computacionales, debido a que la cantidad de datos se multiplicaba por el n\'famero de electrodos a registrar. e6 + e6.1\
+\
+Con este tipo de an\'e1lisis, se busca distinguir la relaci\'f3n entre la p\'e9rdida de sincronizaci\'f3n de potencial el\'e9ctrico y si estaba correlacionada con lesiones cercanas a m\'e9dula espinal. M\'e1s a\'fan, si esta actividad espont\'e1nea de sincronizaci\'f3n, era producida por cierto tipo de neuronas, que ya se ven\'edan estudiando; y no era, como se pensaba, simplemente un ruido aleatorio. e7 + e7.1\
+\
+Aunque este es un trabajo de investigaci\'f3n te\'f3rica, se vislumbra que las aplicaciones m\'e9dicas de esta t\'e9cnica son muchas y muy diversas. 1. Permite la identificaci\'f3n de estructuras de la columna que pueden llevar a tratamientos para la recuperaci\'f3n de pacientes en casos de lesiones graves. 2. Permite distinguir el tipo de lesi\'f3n con que llega un paciente, \'fanicamente con la aplicaci\'f3n de electrodos. 3. Permite la detecci\'f3n inmediata de alteraciones en la actividad espont\'e1nea debidas a problemas surgidos en el paciente durante una intervenci\'f3n quir\'fargica, ya sea espinal o cardiaca. e8\
+\
+Como aplicaci\'f3n matem\'e1tica, Benjam\'edn nos comenta de una idea, te\'f3rica todav\'eda, en la que en vez de vectores finitos, se podr\'edan manejar vectores infinitos. Aunque esto da pie a varias interpretaciones. e9\
+\
+La colaboraci\'f3n para un trabajo de este tipo se da cuando se notan y destacan las fortalezas de los miembros de un equipo. e10\
+\
+El art\'edculo sobre este trabajo sali\'f3 publicado en la revista Plos One en octubre de 2011. e11\
+\
+\
+\
+\
+}
